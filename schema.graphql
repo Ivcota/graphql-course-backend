@@ -13,7 +13,7 @@ type Course {
 
 type Lesson {
   description: String
-  id: String!
+  id: String
   title: String
   video: String
 }
@@ -21,6 +21,7 @@ type Lesson {
 type Query {
   GetCourses: [Course]!
   GetSingleCourse(id: String!): Course!
+  GetSingleLesson(id: String!): Lesson!
 }
 
 type Section {

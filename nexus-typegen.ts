@@ -37,7 +37,7 @@ export interface NexusGenObjects {
   }
   Lesson: { // root type
     description?: string | null; // String
-    id: string; // String!
+    id?: string | null; // String
     title?: string | null; // String
     video?: string | null; // String
   }
@@ -70,13 +70,14 @@ export interface NexusGenFieldTypes {
   }
   Lesson: { // field return type
     description: string | null; // String
-    id: string; // String!
+    id: string | null; // String
     title: string | null; // String
     video: string | null; // String
   }
   Query: { // field return type
     GetCourses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
     GetSingleCourse: NexusGenRootTypes['Course']; // Course!
+    GetSingleLesson: NexusGenRootTypes['Lesson']; // Lesson!
   }
   Section: { // field return type
     description: string | null; // String
@@ -104,6 +105,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     GetCourses: 'Course'
     GetSingleCourse: 'Course'
+    GetSingleLesson: 'Lesson'
   }
   Section: { // field return type name
     description: 'String'
@@ -116,6 +118,9 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Query: {
     GetSingleCourse: { // args
+      id: string; // String!
+    }
+    GetSingleLesson: { // args
       id: string; // String!
     }
   }
