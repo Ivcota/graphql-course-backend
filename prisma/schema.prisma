@@ -1,0 +1,35 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model courses {
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  courseTitle String
+  description String
+  image       String
+  lessons     BigInt
+  price       Float
+}
+
+model lessons {
+  id           String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  description  String
+  lessonNumber BigInt
+  sectionsId   String  @db.ObjectId
+  title        String
+  video        String?
+}
+
+model sections {
+  id            String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  coursesId     String @db.ObjectId
+  description   String
+  sectionNumber BigInt
+  title         String
+}
