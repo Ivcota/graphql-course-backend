@@ -20,6 +20,7 @@ type Lesson {
 
 type Query {
   GetCourses: [Course]!
+  GetSingleCourse(id: String!): Course!
 }
 
 type Section {

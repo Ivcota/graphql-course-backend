@@ -1,4 +1,4 @@
-import { extendType, objectType } from "nexus";
+import { extendType, nonNull, objectType } from "nexus";
 
 export const Course = objectType({
   name: "Course",
@@ -29,6 +29,27 @@ export const GetCourses = extendType({
       async resolve(_, __, ctx) {
         const courses = await ctx.db.courses.findMany();
         return courses;
+      },
+    });
+  },
+});
+
+export const GetSingleCourse = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("GetSingleCourse", {
+      type: "Course",
+      args: {
+        id: nonNull("String"),
+      },
+      async resolve(_, { id }, { db }) {
+        const course = await db.courses.findUnique({
+          where: {
+            id: id,
+          },
+        });
+
+        return course as any;
       },
     });
   },

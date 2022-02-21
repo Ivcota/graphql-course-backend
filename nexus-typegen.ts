@@ -76,6 +76,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     GetCourses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
+    GetSingleCourse: NexusGenRootTypes['Course']; // Course!
   }
   Section: { // field return type
     description: string | null; // String
@@ -102,6 +103,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     GetCourses: 'Course'
+    GetSingleCourse: 'Course'
   }
   Section: { // field return type name
     description: 'String'
@@ -112,6 +114,11 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    GetSingleCourse: { // args
+      id: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
