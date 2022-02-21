@@ -3,13 +3,28 @@
 
 
 type Course {
-  courseTitle: String
+  courseTitle: String!
   description: String
-  id: String
+  id: String!
   image: String
   price: Float
+  sections: [Section]!
+}
+
+type Lesson {
+  description: String
+  id: String!
+  title: String
+  video: String
 }
 
 type Query {
   GetCourses: [Course]!
+}
+
+type Section {
+  description: String
+  id: String!
+  lessons: [Lesson]!
+  title: String
 }

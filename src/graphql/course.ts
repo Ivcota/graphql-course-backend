@@ -3,11 +3,21 @@ import { extendType, objectType } from "nexus";
 export const Course = objectType({
   name: "Course",
   definition(t) {
-    t.string("id");
-    t.string("courseTitle");
+    t.nonNull.string("id");
+    t.nonNull.string("courseTitle");
     t.string("description");
     t.string("image");
     t.float("price");
+    t.nonNull.list.field("sections", {
+      type: "Section",
+      async resolve({ id }, __, { db }) {
+        return await db.sections.findMany({
+          where: {
+            coursesId: id,
+          },
+        });
+      },
+    });
   },
 });
 

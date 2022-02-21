@@ -9,24 +9,23 @@ datasource db {
 }
 
 model courses {
-  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id          String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
   courseTitle String
   description String
   image       String
-  lessons     lessons[]
   price       Float
-  sections    sections? @relation(fields: [sectionsId], references: [id])
-  sectionsId  String?   @db.ObjectId
+  sections    sections[]
+
 }
 
 model lessons {
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
   description String
-  sectionsId  String   @db.ObjectId
+  sectionsId  String  @db.ObjectId
   title       String
   video       String?
-  courses     courses? @relation(fields: [coursesId], references: [id])
-  coursesId   String?  @db.ObjectId
+
+  sections sections @relation(fields: [sectionsId], references: [id])
 }
 
 model sections {
@@ -34,5 +33,7 @@ model sections {
   coursesId   String    @db.ObjectId
   description String
   title       String
-  courses     courses[]
+  lessons     lessons[]
+
+  courses courses @relation(fields: [coursesId], references: [id])
 }

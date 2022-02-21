@@ -29,13 +29,24 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Course: { // root type
-    courseTitle?: string | null; // String
+    courseTitle: string; // String!
     description?: string | null; // String
-    id?: string | null; // String
+    id: string; // String!
     image?: string | null; // String
     price?: number | null; // Float
   }
+  Lesson: { // root type
+    description?: string | null; // String
+    id: string; // String!
+    title?: string | null; // String
+    video?: string | null; // String
+  }
   Query: {};
+  Section: { // root type
+    description?: string | null; // String
+    id: string; // String!
+    title?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -50,14 +61,27 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Course: { // field return type
-    courseTitle: string | null; // String
+    courseTitle: string; // String!
     description: string | null; // String
-    id: string | null; // String
+    id: string; // String!
     image: string | null; // String
     price: number | null; // Float
+    sections: Array<NexusGenRootTypes['Section'] | null>; // [Section]!
+  }
+  Lesson: { // field return type
+    description: string | null; // String
+    id: string; // String!
+    title: string | null; // String
+    video: string | null; // String
   }
   Query: { // field return type
     GetCourses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
+  }
+  Section: { // field return type
+    description: string | null; // String
+    id: string; // String!
+    lessons: Array<NexusGenRootTypes['Lesson'] | null>; // [Lesson]!
+    title: string | null; // String
   }
 }
 
@@ -68,9 +92,22 @@ export interface NexusGenFieldTypeNames {
     id: 'String'
     image: 'String'
     price: 'Float'
+    sections: 'Section'
+  }
+  Lesson: { // field return type name
+    description: 'String'
+    id: 'String'
+    title: 'String'
+    video: 'String'
   }
   Query: { // field return type name
     GetCourses: 'Course'
+  }
+  Section: { // field return type name
+    description: 'String'
+    id: 'String'
+    lessons: 'Lesson'
+    title: 'String'
   }
 }
 
