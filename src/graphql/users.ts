@@ -4,11 +4,11 @@ export const User = objectType({
   name: "User",
   definition(t) {
     t.nonNull.string("id");
-    t.nonNull.string("username");
-    t.nonNull.string("firstName");
+    t.string("username");
+    t.string("firstName");
     t.string("lastName");
     t.nonNull.string("email");
-    t.nonNull.string("password");
+    t.string("password");
     t.nonNull.list.field("courses", {
       type: "Course",
       async resolve({ id }, __, { db }) {
@@ -68,6 +68,54 @@ export const GetSingleUser = extendType({
         };
       },
       description: "Get a single user",
+    });
+  },
+});
+
+// Mutations
+
+export const SubmitEmailResponse = objectType({
+  name: "SubmitEmailResponse",
+  definition(t) {
+    t.nonNull.int("code");
+    t.nonNull.boolean("success");
+    t.nonNull.string("message");
+    t.field("user", {
+      type: "User",
+    });
+  },
+});
+
+export const SubmitEmail = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("SubmitEmail", {
+      type: "SubmitEmailResponse",
+      args: {
+        email: nonNull("String"),
+      },
+      async resolve(_, { email }, { db }) {
+        try {
+          const newUser = await db.users.create({
+            data: {
+              email: email.toLowerCase(),
+            },
+          });
+
+          return {
+            code: 200,
+            message: "Email collected",
+            success: true,
+            user: newUser,
+          };
+        } catch (error) {
+          return {
+            code: 400,
+            message: "User already created",
+            success: false,
+          };
+        }
+      },
     });
   },
 });

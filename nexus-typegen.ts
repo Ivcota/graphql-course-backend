@@ -48,13 +48,19 @@ export interface NexusGenObjects {
     id: string; // String!
     title?: string | null; // String
   }
+  SubmitEmailResponse: { // root type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user?: NexusGenRootTypes['User'] | null; // User
+  }
   User: { // root type
     email: string; // String!
-    firstName: string; // String!
+    firstName?: string | null; // String
     id: string; // String!
     lastName?: string | null; // String
-    password: string; // String!
-    username: string; // String!
+    password?: string | null; // String
+    username?: string | null; // String
   }
 }
 
@@ -85,6 +91,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     CreateLesson: NexusGenRootTypes['Lesson'] | null; // Lesson
+    SubmitEmail: NexusGenRootTypes['SubmitEmailResponse']; // SubmitEmailResponse!
   }
   Query: { // field return type
     GetAllUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
@@ -99,14 +106,20 @@ export interface NexusGenFieldTypes {
     lessons: Array<NexusGenRootTypes['Lesson'] | null>; // [Lesson]!
     title: string | null; // String
   }
+  SubmitEmailResponse: { // field return type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   User: { // field return type
     courses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
     email: string; // String!
-    firstName: string; // String!
+    firstName: string | null; // String
     id: string; // String!
     lastName: string | null; // String
-    password: string; // String!
-    username: string; // String!
+    password: string | null; // String
+    username: string | null; // String
   }
 }
 
@@ -127,6 +140,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     CreateLesson: 'Lesson'
+    SubmitEmail: 'SubmitEmailResponse'
   }
   Query: { // field return type name
     GetAllUsers: 'User'
@@ -140,6 +154,12 @@ export interface NexusGenFieldTypeNames {
     id: 'String'
     lessons: 'Lesson'
     title: 'String'
+  }
+  SubmitEmailResponse: { // field return type name
+    code: 'Int'
+    message: 'String'
+    success: 'Boolean'
+    user: 'User'
   }
   User: { // field return type name
     courses: 'Course'
@@ -159,6 +179,9 @@ export interface NexusGenArgTypes {
       sectionsId?: string | null; // String
       title: string; // String!
       video?: string | null; // String
+    }
+    SubmitEmail: { // args
+      email: string; // String!
     }
   }
   Query: {

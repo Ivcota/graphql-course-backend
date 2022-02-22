@@ -20,6 +20,7 @@ type Lesson {
 
 type Mutation {
   CreateLesson(description: String!, sectionsId: String, title: String!, video: String): Lesson
+  SubmitEmail(email: String!): SubmitEmailResponse!
 }
 
 type Query {
@@ -40,12 +41,19 @@ type Section {
   title: String
 }
 
+type SubmitEmailResponse {
+  code: Int!
+  message: String!
+  success: Boolean!
+  user: User
+}
+
 type User {
   courses: [Course]!
   email: String!
-  firstName: String!
+  firstName: String
   id: String!
   lastName: String
-  password: String!
-  username: String!
+  password: String
+  username: String
 }
