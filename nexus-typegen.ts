@@ -47,6 +47,14 @@ export interface NexusGenObjects {
     id: string; // String!
     title?: string | null; // String
   }
+  User: { // root type
+    email: string; // String!
+    firstName: string; // String!
+    id: string; // String!
+    lastName?: string | null; // String
+    password: string; // String!
+    username: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -75,15 +83,26 @@ export interface NexusGenFieldTypes {
     video: string | null; // String
   }
   Query: { // field return type
+    GetAllUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
     GetCourses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
     GetSingleCourse: NexusGenRootTypes['Course']; // Course!
     GetSingleLesson: NexusGenRootTypes['Lesson']; // Lesson!
+    GetSingleUser: NexusGenRootTypes['User']; // User!
   }
   Section: { // field return type
     description: string | null; // String
     id: string; // String!
     lessons: Array<NexusGenRootTypes['Lesson'] | null>; // [Lesson]!
     title: string | null; // String
+  }
+  User: { // field return type
+    courses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
+    email: string; // String!
+    firstName: string; // String!
+    id: string; // String!
+    lastName: string | null; // String
+    password: string; // String!
+    username: string; // String!
   }
 }
 
@@ -103,15 +122,26 @@ export interface NexusGenFieldTypeNames {
     video: 'String'
   }
   Query: { // field return type name
+    GetAllUsers: 'User'
     GetCourses: 'Course'
     GetSingleCourse: 'Course'
     GetSingleLesson: 'Lesson'
+    GetSingleUser: 'User'
   }
   Section: { // field return type name
     description: 'String'
     id: 'String'
     lessons: 'Lesson'
     title: 'String'
+  }
+  User: { // field return type name
+    courses: 'Course'
+    email: 'String'
+    firstName: 'String'
+    id: 'String'
+    lastName: 'String'
+    password: 'String'
+    username: 'String'
   }
 }
 
@@ -121,6 +151,9 @@ export interface NexusGenArgTypes {
       id: string; // String!
     }
     GetSingleLesson: { // args
+      id: string; // String!
+    }
+    GetSingleUser: { // args
       id: string; // String!
     }
   }

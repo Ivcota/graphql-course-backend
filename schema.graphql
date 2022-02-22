@@ -19,9 +19,11 @@ type Lesson {
 }
 
 type Query {
+  GetAllUsers: [User]!
   GetCourses: [Course]!
   GetSingleCourse(id: String!): Course!
   GetSingleLesson(id: String!): Lesson!
+  GetSingleUser(id: String!): User!
 }
 
 type Section {
@@ -29,4 +31,14 @@ type Section {
   id: String!
   lessons: [Lesson]!
   title: String
+}
+
+type User {
+  courses: [Course]!
+  email: String!
+  firstName: String!
+  id: String!
+  lastName: String
+  password: String!
+  username: String!
 }

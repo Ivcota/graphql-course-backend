@@ -15,6 +15,9 @@ export const Course = objectType({
           where: {
             coursesId: id,
           },
+          orderBy: {
+            sectionNumber: "asc",
+          },
         });
       },
     });

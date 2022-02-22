@@ -1,39 +1,48 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
+
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id        String    @id @default(uuid())
+  username  String
+  firstName String
+  lastName  String?
+  email     String    @unique
+  password  String
+  courses   courses[]
+}
+
 model courses {
-  id          String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id          String     @id @default(uuid())
   courseTitle String
   description String
   image       String
   price       Float
   sections    sections[]
-
+  users       users[]
 }
 
 model lessons {
-  id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  description String
-  sectionsId  String  @db.ObjectId
+  id          String    @id @default(uuid())
   title       String
+  description String
   video       String?
-
-  sections sections @relation(fields: [sectionsId], references: [id])
+  sections    sections? @relation(fields: [sectionsId], references: [id])
+  sectionsId  String?
 }
 
 model sections {
-  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  coursesId   String    @db.ObjectId
-  description String
-  title       String
-  lessons     lessons[]
-
-  courses courses @relation(fields: [coursesId], references: [id])
+  id            String    @id @default(uuid())
+  title         String
+  description   String
+  sectionNumber Int
+  lessons       lessons[]
+  courses       courses?  @relation(fields: [coursesId], references: [id])
+  coursesId     String?
 }
