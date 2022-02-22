@@ -35,6 +35,12 @@ export interface NexusGenObjects {
     image?: string | null; // String
     price?: number | null; // Float
   }
+  CreateCourseResponse: { // root type
+    Course?: NexusGenRootTypes['Course'] | null; // Course
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+  }
   CreateLessonResponse: { // root type
     code: number; // Int!
     lesson?: NexusGenRootTypes['Lesson'] | null; // Lesson
@@ -90,6 +96,12 @@ export interface NexusGenFieldTypes {
     price: number | null; // Float
     sections: Array<NexusGenRootTypes['Section'] | null>; // [Section]!
   }
+  CreateCourseResponse: { // field return type
+    Course: NexusGenRootTypes['Course'] | null; // Course
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+  }
   CreateLessonResponse: { // field return type
     code: number; // Int!
     lesson: NexusGenRootTypes['Lesson'] | null; // Lesson
@@ -104,6 +116,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     CreateLesson: NexusGenRootTypes['CreateLessonResponse'] | null; // CreateLessonResponse
+    CreateNewCourse: NexusGenRootTypes['CreateCourseResponse'] | null; // CreateCourseResponse
     SubmitEmail: NexusGenRootTypes['SubmitEmailResponse']; // SubmitEmailResponse!
   }
   Query: { // field return type
@@ -146,6 +159,12 @@ export interface NexusGenFieldTypeNames {
     price: 'Float'
     sections: 'Section'
   }
+  CreateCourseResponse: { // field return type name
+    Course: 'Course'
+    code: 'Int'
+    message: 'String'
+    success: 'Boolean'
+  }
   CreateLessonResponse: { // field return type name
     code: 'Int'
     lesson: 'Lesson'
@@ -160,6 +179,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     CreateLesson: 'CreateLessonResponse'
+    CreateNewCourse: 'CreateCourseResponse'
     SubmitEmail: 'SubmitEmailResponse'
   }
   Query: { // field return type name
@@ -199,6 +219,12 @@ export interface NexusGenArgTypes {
       sectionsId?: string | null; // String
       title: string; // String!
       video?: string | null; // String
+    }
+    CreateNewCourse: { // args
+      courseTitle: string; // String!
+      description: string; // String!
+      image: string; // String!
+      price: number; // Float!
     }
     SubmitEmail: { // args
       email: string; // String!

@@ -79,3 +79,55 @@ export const GetSingleCourse = extendType({
     });
   },
 });
+
+export const CreateCourseResponse = objectType({
+  name: "CreateCourseResponse",
+  definition(t) {
+    t.nonNull.int("code");
+    t.nonNull.boolean("success");
+    t.nonNull.string("message");
+    t.field("Course", {
+      type: "Course",
+    });
+  },
+});
+
+export const CreateNewCourse = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.field("CreateNewCourse", {
+      type: "CreateCourseResponse",
+      args: {
+        courseTitle: nonNull("String"),
+        description: nonNull("String"),
+        image: nonNull("String"),
+        price: nonNull("Float"),
+      },
+      async resolve(_, { courseTitle, price, description, image }, { db }) {
+        try {
+          const course = await db.courses.create({
+            data: {
+              courseTitle,
+              description: description as string,
+              price: price as number,
+              image: image as string,
+            },
+          });
+
+          return {
+            code: 201,
+            message: "New Course Created",
+            success: true,
+            Course: course,
+          };
+        } catch (error) {
+          return {
+            code: 400,
+            message: error as string,
+            success: false,
+          };
+        }
+      },
+    });
+  },
+});
