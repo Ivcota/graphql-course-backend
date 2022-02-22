@@ -7,8 +7,16 @@ type Course {
   description: String
   id: String!
   image: String
+  lessons: Int!
   price: Float
   sections: [Section]!
+}
+
+type CreateLessonResponse {
+  code: Int!
+  lesson: Lesson
+  message: String!
+  success: Boolean!
 }
 
 type Lesson {
@@ -19,7 +27,7 @@ type Lesson {
 }
 
 type Mutation {
-  CreateLesson(description: String!, sectionsId: String, title: String!, video: String): Lesson
+  CreateLesson(description: String!, sectionsId: String, title: String!, video: String): CreateLessonResponse
   SubmitEmail(email: String!): SubmitEmailResponse!
 }
 

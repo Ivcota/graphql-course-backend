@@ -8,6 +8,28 @@ export const Course = objectType({
     t.string("description");
     t.string("image");
     t.float("price");
+    t.nonNull.int("lessons", {
+      async resolve({ id }, __, { db }) {
+        const lessons = await db.sections.findMany({
+          where: {
+            coursesId: id,
+          },
+          select: {
+            _count: true,
+          },
+        });
+        const countArray = lessons.map((lesson) => {
+          return lesson._count.lessons;
+        });
+
+        let count: number = 0;
+        countArray.forEach((number) => {
+          count = count + number;
+        });
+
+        return count;
+      },
+    });
     t.nonNull.list.field("sections", {
       type: "Section",
       async resolve({ id }, __, { db }) {

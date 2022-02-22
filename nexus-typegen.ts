@@ -35,6 +35,12 @@ export interface NexusGenObjects {
     image?: string | null; // String
     price?: number | null; // Float
   }
+  CreateLessonResponse: { // root type
+    code: number; // Int!
+    lesson?: NexusGenRootTypes['Lesson'] | null; // Lesson
+    message: string; // String!
+    success: boolean; // Boolean!
+  }
   Lesson: { // root type
     description?: string | null; // String
     id?: string | null; // String
@@ -80,8 +86,15 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     id: string; // String!
     image: string | null; // String
+    lessons: number; // Int!
     price: number | null; // Float
     sections: Array<NexusGenRootTypes['Section'] | null>; // [Section]!
+  }
+  CreateLessonResponse: { // field return type
+    code: number; // Int!
+    lesson: NexusGenRootTypes['Lesson'] | null; // Lesson
+    message: string; // String!
+    success: boolean; // Boolean!
   }
   Lesson: { // field return type
     description: string | null; // String
@@ -90,7 +103,7 @@ export interface NexusGenFieldTypes {
     video: string | null; // String
   }
   Mutation: { // field return type
-    CreateLesson: NexusGenRootTypes['Lesson'] | null; // Lesson
+    CreateLesson: NexusGenRootTypes['CreateLessonResponse'] | null; // CreateLessonResponse
     SubmitEmail: NexusGenRootTypes['SubmitEmailResponse']; // SubmitEmailResponse!
   }
   Query: { // field return type
@@ -129,8 +142,15 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'String'
     image: 'String'
+    lessons: 'Int'
     price: 'Float'
     sections: 'Section'
+  }
+  CreateLessonResponse: { // field return type name
+    code: 'Int'
+    lesson: 'Lesson'
+    message: 'String'
+    success: 'Boolean'
   }
   Lesson: { // field return type name
     description: 'String'
@@ -139,7 +159,7 @@ export interface NexusGenFieldTypeNames {
     video: 'String'
   }
   Mutation: { // field return type name
-    CreateLesson: 'Lesson'
+    CreateLesson: 'CreateLessonResponse'
     SubmitEmail: 'SubmitEmailResponse'
   }
   Query: { // field return type name

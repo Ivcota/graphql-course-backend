@@ -38,11 +38,25 @@ export const GetSingleLesson = extendType({
   },
 });
 
+// Mutations
+
+export const CreateLessonResponse = objectType({
+  name: "CreateLessonResponse",
+  definition(t) {
+    t.nonNull.int("code");
+    t.nonNull.boolean("success");
+    t.nonNull.string("message");
+    t.field("lesson", {
+      type: "Lesson",
+    });
+  },
+});
+
 export const CreateLesson = extendType({
   type: "Mutation",
   definition(t) {
     t.field("CreateLesson", {
-      type: "Lesson",
+      type: "CreateLessonResponse",
       args: {
         title: nonNull("String"),
         description: nonNull("String"),
@@ -50,16 +64,28 @@ export const CreateLesson = extendType({
         sectionsId: "String",
       },
       async resolve(_, { title, description, video, sectionsId }, { db }) {
-        console.log(sectionsId);
-        const newLesson = await db.lessons.create({
-          data: {
-            title,
-            description,
-            video,
-            sectionsId,
-          },
-        });
-        return newLesson;
+        try {
+          const newLesson = await db.lessons.create({
+            data: {
+              title,
+              description,
+              video,
+              sectionsId,
+            },
+          });
+          return {
+            code: 201,
+            message: "Lesson created",
+            success: true,
+            lesson: newLesson,
+          };
+        } catch (error) {
+          return {
+            code: 400,
+            message: error as string,
+            success: false,
+          };
+        }
       },
     });
   },
