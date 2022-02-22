@@ -3,7 +3,7 @@ import { server } from "./server";
 
 async function startApolloServer() {
   const app = express();
-  const PORT = 5000;
+  const PORT = process.env || 5000;
 
   await server.start();
 
