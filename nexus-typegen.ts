@@ -41,6 +41,7 @@ export interface NexusGenObjects {
     title?: string | null; // String
     video?: string | null; // String
   }
+  Mutation: {};
   Query: {};
   Section: { // root type
     description?: string | null; // String
@@ -82,6 +83,9 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     video: string | null; // String
   }
+  Mutation: { // field return type
+    CreateLesson: NexusGenRootTypes['Lesson'] | null; // Lesson
+  }
   Query: { // field return type
     GetAllUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
     GetCourses: Array<NexusGenRootTypes['Course'] | null>; // [Course]!
@@ -121,6 +125,9 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     video: 'String'
   }
+  Mutation: { // field return type name
+    CreateLesson: 'Lesson'
+  }
   Query: { // field return type name
     GetAllUsers: 'User'
     GetCourses: 'Course'
@@ -146,6 +153,14 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    CreateLesson: { // args
+      description: string; // String!
+      sectionsId?: string | null; // String
+      title: string; // String!
+      video?: string | null; // String
+    }
+  }
   Query: {
     GetSingleCourse: { // args
       id: string; // String!

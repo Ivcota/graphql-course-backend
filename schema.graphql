@@ -18,11 +18,18 @@ type Lesson {
   video: String
 }
 
+type Mutation {
+  CreateLesson(description: String!, sectionsId: String, title: String!, video: String): Lesson
+}
+
 type Query {
+  """Get multiple users"""
   GetAllUsers: [User]!
   GetCourses: [Course]!
   GetSingleCourse(id: String!): Course!
   GetSingleLesson(id: String!): Lesson!
+
+  """Get a single user"""
   GetSingleUser(id: String!): User!
 }
 

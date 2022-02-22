@@ -39,6 +39,7 @@ export const GetAllUsers = extendType({
         const users = await db.users.findMany();
         return users;
       },
+      description: "Get multiple users",
     });
   },
 });
@@ -66,6 +67,7 @@ export const GetSingleUser = extendType({
           lastName: user?.lastName,
         };
       },
+      description: "Get a single user",
     });
   },
 });

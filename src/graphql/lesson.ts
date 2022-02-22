@@ -37,3 +37,30 @@ export const GetSingleLesson = extendType({
     });
   },
 });
+
+export const CreateLesson = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.field("CreateLesson", {
+      type: "Lesson",
+      args: {
+        title: nonNull("String"),
+        description: nonNull("String"),
+        video: "String",
+        sectionsId: "String",
+      },
+      async resolve(_, { title, description, video, sectionsId }, { db }) {
+        console.log(sectionsId);
+        const newLesson = await db.lessons.create({
+          data: {
+            title,
+            description,
+            video,
+            sectionsId,
+          },
+        });
+        return newLesson;
+      },
+    });
+  },
+});
