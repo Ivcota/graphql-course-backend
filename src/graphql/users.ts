@@ -15,7 +15,7 @@ export const User = objectType({
         const courses = await db.courses.findMany({
           where: {
             users: {
-              every: {
+              some: {
                 id: {
                   equals: id,
                 },
@@ -113,6 +113,110 @@ export const SubmitEmail = extendType({
             code: 400,
             message: "User already created",
             success: false,
+          };
+        }
+      },
+    });
+  },
+});
+
+export const CreateUserResponse = objectType({
+  name: "CreateUserResponse",
+  definition(t) {
+    t.nonNull.int("code");
+    t.nonNull.boolean("success");
+    t.nonNull.string("message");
+    t.field("user", {
+      type: "User",
+    });
+  },
+});
+
+export const CreateUser = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("CreateUser", {
+      type: "CreateUserResponse",
+      args: {
+        username: "String",
+        firstName: "String",
+        lastName: "String",
+        password: "String",
+        email: nonNull("String"),
+      },
+      async resolve(
+        _,
+        { username, firstName, lastName, password, email },
+        { db }
+      ) {
+        const user = await db.users.create({
+          data: {
+            email,
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            password: password,
+          },
+        });
+
+        return {
+          code: 201,
+          message: "Success",
+          success: true,
+          user,
+        };
+      },
+    });
+  },
+});
+
+export const AddCourseToUserResponse = objectType({
+  name: "AddCourseToUserResponse",
+  definition(t) {
+    t.nonNull.int("code");
+    t.nonNull.boolean("success");
+    t.nonNull.string("message");
+    t.field("user", {
+      type: "User",
+    });
+  },
+});
+
+export const AddCourseToUser = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("AddCourseToUser", {
+      type: "AddCourseToUserResponse",
+      args: {
+        userId: nonNull("String"),
+        courseId: nonNull("String"),
+      },
+      async resolve(_, { courseId, userId }, { db }) {
+        try {
+          const user = await db.users.update({
+            where: {
+              id: userId,
+            },
+            data: {
+              courses: {
+                connect: {
+                  id: courseId,
+                },
+              },
+            },
+          });
+
+          return {
+            code: 200,
+            success: true,
+            message: "Course added",
+            user: user,
+          };
+        } catch (error) {
+          return {
+            code: 400,
+            success: false,
+            message: JSON.stringify(error) as string,
           };
         }
       },

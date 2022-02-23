@@ -2,6 +2,13 @@
 ### Do not make changes to this file directly
 
 
+type AddCourseToUserResponse {
+  code: Int!
+  message: String!
+  success: Boolean!
+  user: User
+}
+
 type Course {
   courseTitle: String!
   description: String
@@ -26,6 +33,13 @@ type CreateLessonResponse {
   success: Boolean!
 }
 
+type CreateUserResponse {
+  code: Int!
+  message: String!
+  success: Boolean!
+  user: User
+}
+
 type Lesson {
   description: String
   id: String
@@ -34,8 +48,10 @@ type Lesson {
 }
 
 type Mutation {
+  AddCourseToUser(courseId: String!, userId: String!): AddCourseToUserResponse!
   CreateLesson(description: String!, sectionsId: String, title: String!, video: String): CreateLessonResponse
   CreateNewCourse(courseTitle: String!, description: String!, image: String!, price: Float!): CreateCourseResponse
+  CreateUser(email: String!, firstName: String, lastName: String, password: String, username: String): CreateUserResponse!
   SubmitEmail(email: String!): SubmitEmailResponse!
 }
 

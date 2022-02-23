@@ -28,6 +28,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AddCourseToUserResponse: { // root type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user?: NexusGenRootTypes['User'] | null; // User
+  }
   Course: { // root type
     courseTitle: string; // String!
     description?: string | null; // String
@@ -46,6 +52,12 @@ export interface NexusGenObjects {
     lesson?: NexusGenRootTypes['Lesson'] | null; // Lesson
     message: string; // String!
     success: boolean; // Boolean!
+  }
+  CreateUserResponse: { // root type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user?: NexusGenRootTypes['User'] | null; // User
   }
   Lesson: { // root type
     description?: string | null; // String
@@ -87,6 +99,12 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AddCourseToUserResponse: { // field return type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Course: { // field return type
     courseTitle: string; // String!
     description: string | null; // String
@@ -108,6 +126,12 @@ export interface NexusGenFieldTypes {
     message: string; // String!
     success: boolean; // Boolean!
   }
+  CreateUserResponse: { // field return type
+    code: number; // Int!
+    message: string; // String!
+    success: boolean; // Boolean!
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Lesson: { // field return type
     description: string | null; // String
     id: string | null; // String
@@ -115,8 +139,10 @@ export interface NexusGenFieldTypes {
     video: string | null; // String
   }
   Mutation: { // field return type
+    AddCourseToUser: NexusGenRootTypes['AddCourseToUserResponse']; // AddCourseToUserResponse!
     CreateLesson: NexusGenRootTypes['CreateLessonResponse'] | null; // CreateLessonResponse
     CreateNewCourse: NexusGenRootTypes['CreateCourseResponse'] | null; // CreateCourseResponse
+    CreateUser: NexusGenRootTypes['CreateUserResponse']; // CreateUserResponse!
     SubmitEmail: NexusGenRootTypes['SubmitEmailResponse']; // SubmitEmailResponse!
   }
   Query: { // field return type
@@ -150,6 +176,12 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  AddCourseToUserResponse: { // field return type name
+    code: 'Int'
+    message: 'String'
+    success: 'Boolean'
+    user: 'User'
+  }
   Course: { // field return type name
     courseTitle: 'String'
     description: 'String'
@@ -171,6 +203,12 @@ export interface NexusGenFieldTypeNames {
     message: 'String'
     success: 'Boolean'
   }
+  CreateUserResponse: { // field return type name
+    code: 'Int'
+    message: 'String'
+    success: 'Boolean'
+    user: 'User'
+  }
   Lesson: { // field return type name
     description: 'String'
     id: 'String'
@@ -178,8 +216,10 @@ export interface NexusGenFieldTypeNames {
     video: 'String'
   }
   Mutation: { // field return type name
+    AddCourseToUser: 'AddCourseToUserResponse'
     CreateLesson: 'CreateLessonResponse'
     CreateNewCourse: 'CreateCourseResponse'
+    CreateUser: 'CreateUserResponse'
     SubmitEmail: 'SubmitEmailResponse'
   }
   Query: { // field return type name
@@ -214,6 +254,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    AddCourseToUser: { // args
+      courseId: string; // String!
+      userId: string; // String!
+    }
     CreateLesson: { // args
       description: string; // String!
       sectionsId?: string | null; // String
@@ -225,6 +269,13 @@ export interface NexusGenArgTypes {
       description: string; // String!
       image: string; // String!
       price: number; // Float!
+    }
+    CreateUser: { // args
+      email: string; // String!
+      firstName?: string | null; // String
+      lastName?: string | null; // String
+      password?: string | null; // String
+      username?: string | null; // String
     }
     SubmitEmail: { // args
       email: string; // String!
